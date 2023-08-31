@@ -1,6 +1,6 @@
 from detectron2.config import get_cfg
 from detectron2.engine.defaults import DefaultPredictor
-from adet.modeling.vitae_v2.vitae_v2 import ViTAEv2
+from .adet.modeling.vitae_v2.vitae_v2 import ViTAEv2
 #from .vitae_v2 import ViTAEv2
 #from .vitae_v2_register import load_config
 
