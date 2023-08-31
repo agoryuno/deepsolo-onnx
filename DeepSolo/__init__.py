@@ -1,1 +1,1 @@
-from onnx_model import SimpleONNXReadyModel
+from .onnx_model import SimpleONNXReadyModel
