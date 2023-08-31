@@ -1,6 +1,6 @@
 from typing import Union
 from pathlib import Path
-from detectron2.config import CfgNode
+from detectron2.config import CfgNode, get_cfg
 
 
 def load_config(yaml_path: Union[str, Path]) -> 'CfgNode':
@@ -14,9 +14,7 @@ def load_config(yaml_path: Union[str, Path]) -> 'CfgNode':
         CfgNode: A Detectron2 CfgNode object containing the loaded and registered configuration settings.
     """
 
-    cfg = CfgNode(new_allowed=True)
-
-    cfg.MODEL = CfgNode()
+    cfg = get_cfg()
 
     # Register custom fields
     cfg.MODEL.ViTAEv2 = CfgNode()
