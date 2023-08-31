@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='DeepSolo',
-    version='0.1.1',
+    version='0.1.2',
     author='Alex Goryunov',
     author_email='alex.goryunov@gmail.com',
     description='ONNX exporter for the DeepSolo model',
