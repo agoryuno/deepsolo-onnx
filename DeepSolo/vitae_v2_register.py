@@ -17,14 +17,14 @@ def load_config(yaml_path: Union[str, Path]) -> 'CfgNode':
     cfg = get_cfg()
 
     # Register custom fields
-    cfg.MODEL.ViTAEv2 = get_cfg().new()
-    cfg.MODEL.TRANSFORMER = get_cfg().new()
-    cfg.MODEL.TRANSFORMER.LOSS = get_cfg().new()
-    cfg.SOLVER = get_cfg().new()
-    cfg.SOLVER.CLIP_GRADIENTS = get_cfg().new()
-    cfg.INPUT = get_cfg().new()
-    cfg.INPUT.CROP = get_cfg().new()
-    cfg.DATALOADER = get_cfg().new()
+    cfg.MODEL.ViTAEv2 = CfgNode()
+    cfg.MODEL.TRANSFORMER = CfgNode()
+    cfg.MODEL.TRANSFORMER.LOSS = CfgNode()
+    cfg.SOLVER = CfgNode()
+    cfg.SOLVER.CLIP_GRADIENTS = CfgNode()
+    cfg.INPUT = CfgNode()
+    cfg.INPUT.CROP = CfgNode()
+    cfg.DATALOADER = CfgNode()
 
     # Merge the YAML config
     cfg.merge_from_file(yaml_path)
