@@ -6,11 +6,11 @@ import torch.nn.functional as F
 from detectron2.modeling.meta_arch.build import META_ARCH_REGISTRY
 from detectron2.modeling import build_backbone
 from detectron2.structures import ImageList, Instances
-from adet.layers.pos_encoding import PositionalEncoding2D
-from adet.modeling.model.losses import SetCriterion
-from adet.modeling.model.matcher import build_matcher
-from adet.modeling.model.detection_transformer import DETECTION_TRANSFORMER
-from adet.utils.misc import NestedTensor
+from ..layers.pos_encoding import PositionalEncoding2D
+from ..modeling.model.losses import SetCriterion
+from ..modeling.model.matcher import build_matcher
+from ..modeling.model.detection_transformer import DETECTION_TRANSFORMER
+from ..utils.misc import NestedTensor
 
 
 class Joiner(nn.Sequential):
