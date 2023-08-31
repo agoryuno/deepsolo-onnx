@@ -12,7 +12,7 @@ import torch
 import torch.nn.functional as F
 from torch import nn
 from torch.nn.init import xavier_uniform_, constant_, uniform_, normal_
-from adet.utils.misc import inverse_sigmoid
+from ..utils.misc import inverse_sigmoid
 from .ms_deform_attn import MSDeformAttn
 from scipy.special import comb as n_over_k
 from ..utils.curve_utils import upcast
