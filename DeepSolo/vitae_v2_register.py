@@ -1,7 +1,7 @@
 from typing import Union
 from pathlib import Path
 from detectron2.config import CfgNode
-from defaults import _C
+from .defaults import _C
 
 
 def load_config(yaml_path: Union[str, Path]) -> 'CfgNode':
