@@ -1,5 +1,5 @@
 from typing import Union
-from os import Path
+from pathlib import Path
 from detectron2.config import CfgNode
 
 
