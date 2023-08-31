@@ -16,6 +16,8 @@ def load_config(yaml_path: Union[str, Path]) -> 'CfgNode':
 
     cfg = CfgNode(new_allowed=True)
 
+    cfg.MODEL = CfgNode()
+
     # Register custom fields
     cfg.MODEL.ViTAEv2 = CfgNode()
     cfg.MODEL.TRANSFORMER = CfgNode()
