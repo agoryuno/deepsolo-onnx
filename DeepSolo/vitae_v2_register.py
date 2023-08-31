@@ -3,7 +3,7 @@ from os import Path
 from detectron2.config import CfgNode
 
 
-def register_vitae_v2(yaml_path: Union[str, Path]) -> 'CfgNode':
+def load_config(yaml_path: Union[str, Path]) -> 'CfgNode':
     """
     Load and register the configuration settings for the ViTAE_V2 model from a YAML file and return a Detectron2 CfgNode.
 
