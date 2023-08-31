@@ -1,13 +1,16 @@
 """
 Borrow from timm(https://github.com/rwightman/pytorch-image-models)
 """
+
+import math
+
 import torch
 import torch.nn as nn
 import numpy as np
 
-from .window import WindowAttention, window_partition, window_reverse
-import math
 from timm.models.layers import DropPath, to_2tuple, trunc_normal_
+
+from .window import WindowAttention, window_partition, window_reverse
 
 
 class Mlp(nn.Module):
