@@ -15,8 +15,8 @@ from torch.nn.init import xavier_uniform_, constant_, uniform_, normal_
 from adet.utils.misc import inverse_sigmoid
 from .ms_deform_attn import MSDeformAttn
 from scipy.special import comb as n_over_k
-from adet.utils.curve_utils import upcast
-from adet.modeling.model.utils import MLP, gen_point_pos_embed
+from ..utils.curve_utils import upcast
+from ..modeling.model.utils import MLP, gen_point_pos_embed
 
 
 class DeformableTransformer(nn.Module):
