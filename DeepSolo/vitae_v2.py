@@ -8,8 +8,6 @@ from timm.models.layers import trunc_normal_
 
 import numpy as np
 
-
-
 from detectron2.modeling.backbone import Backbone
 from detectron2.modeling.backbone.build import BACKBONE_REGISTRY
 from detectron2.layers import ShapeSpec
@@ -100,7 +98,6 @@ class BasicLayer(nn.Module):
             else:
                 x = nc(x)
         return x, (h, w)
-
 
 class ViTAEv2(Backbone):
     def __init__(self,
