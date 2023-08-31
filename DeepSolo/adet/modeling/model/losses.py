@@ -2,9 +2,9 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import copy
-from adet.utils.misc import accuracy, is_dist_avail_and_initialized
+from ...utils.misc import accuracy, is_dist_avail_and_initialized
 from detectron2.utils.comm import get_world_size
-from adet.utils.curve_utils import BezierSampler
+from ...utils.curve_utils import BezierSampler
 
 
 def sigmoid_focal_loss(inputs, targets, num_inst, alpha: float = 0.25, gamma: float = 2):
