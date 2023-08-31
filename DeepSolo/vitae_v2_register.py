@@ -1,27 +1,11 @@
 from typing import Union
 from pathlib import Path
 from detectron2.config import CfgNode, get_cfg
+import yaml
+
 
 
 def load_config(yaml_path: Union[str, Path]) -> 'CfgNode':
-    """
-    Load and register the configuration settings.
-    """
-    template_cfg = CfgNode.load_yaml_with_base(yaml_path)
-    cfg = get_cfg()
-
-    for key, value in template_cfg.items():
-        if key not in cfg:
-            if isinstance(value, dict):
-                cfg[key] = CfgNode(value)
-            else:
-                cfg[key] = value
-
-    # Now that keys are registered, merge the YAML
-    cfg.merge_from_file(yaml_path)
-    return cfg
-
-def load_config2(yaml_path: Union[str, Path]) -> 'CfgNode':
     """
     Load and register the configuration settings for the ViTAE_V2 model from a YAML file and return a Detectron2 CfgNode.
 
@@ -37,6 +21,7 @@ def load_config2(yaml_path: Union[str, Path]) -> 'CfgNode':
     # Register custom fields
     cfg.MODEL.ViTAEv2 = CfgNode()
     cfg.MODEL.ViTAEv2.TYPE = ""
+    cfg.DROP_PATH_RATE = 0.3
     cfg.MODEL.TRANSFORMER = CfgNode()
     cfg.MODEL.TRANSFORMER.LOSS = CfgNode()
     cfg.SOLVER = CfgNode()
