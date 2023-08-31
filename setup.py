@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='DeepSolo',
@@ -10,7 +10,7 @@ setup(
     long_description_content_type='text/markdown',
     url='https://github.com/agoryuno/deepsolo-onnx',
     license='MIT',
-    packages=['DeepSolo'],  
+    packages=find_packages(),  
     install_requires=[
         'numpy',
         'torch',
