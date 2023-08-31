@@ -8,8 +8,8 @@ from timm.models.layers import trunc_normal_
 
 import numpy as np
 
-from detectron2.config import get_cfg
-from detectron2.engine.defaults import DefaultPredictor
+
+
 from detectron2.modeling.backbone import Backbone
 from detectron2.modeling.backbone.build import BACKBONE_REGISTRY
 from detectron2.layers import ShapeSpec
