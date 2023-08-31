@@ -1,6 +1,6 @@
 from typing import Union
 from pathlib import Path
-from detectron2.config import CfgNode, get_cfg
+from detectron2.config import CfgNode
 from .config.defaults import _C
 
 
