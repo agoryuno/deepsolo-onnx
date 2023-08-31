@@ -1,8 +1,7 @@
 from typing import Union
 from pathlib import Path
 from detectron2.config import CfgNode, get_cfg
-import yaml
-
+from .config.defaults import _C
 
 
 def load_config(yaml_path: Union[str, Path]) -> 'CfgNode':
@@ -16,21 +15,7 @@ def load_config(yaml_path: Union[str, Path]) -> 'CfgNode':
         CfgNode: A Detectron2 CfgNode object containing the loaded and registered configuration settings.
     """
 
-    cfg = get_cfg()
-
-    # Register custom fields
-    cfg.MODEL.ViTAEv2 = CfgNode()
-    cfg.MODEL.ViTAEv2.TYPE = ""
-    cfg.DROP_PATH_RATE = 0.3
-    cfg.MODEL.TRANSFORMER = CfgNode()
-    cfg.MODEL.TRANSFORMER.LOSS = CfgNode()
-    cfg.SOLVER = CfgNode()
-    cfg.SOLVER.CLIP_GRADIENTS = CfgNode()
-    cfg.INPUT = CfgNode()
-    cfg.INPUT.CROP = CfgNode()
-    cfg.DATALOADER = CfgNode()
-
     # Merge the YAML config
-    cfg.merge_from_file(yaml_path)
-    return cfg
+    _C.merge_from_file(yaml_path)
+    return _C
 
