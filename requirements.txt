@@ -1,5 +1,4 @@
 numpy
 torch
 timm
-# Need to build detectron2 from source
 git+https://github.com/facebookresearch/detectron2.git

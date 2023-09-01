@@ -2,8 +2,7 @@ from setuptools import setup, find_packages
 
 
 with open("requirements.txt", "r") as f:
-    requirements = f.read().splitlines()
-
+    requirements = [r for r in f.read().splitlines() if r[:3] != "git"]
 
 setup(
     name='DeepSolo',
@@ -17,6 +16,9 @@ setup(
     license='MIT',
     packages=find_packages(),  
     install_requires=requirements,
+    dependency_links=[
+        'git+https://github.com/facebookresearch/detectron2.git'
+    ]
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
