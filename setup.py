@@ -1,5 +1,10 @@
 from setuptools import setup, find_packages
 
+
+with open("requirements.txt", "r") as f:
+    requirements = f.read().splitlines()
+
+
 setup(
     name='DeepSolo',
     version='0.1.3.3',
@@ -11,12 +16,7 @@ setup(
     url='https://github.com/agoryuno/deepsolo-onnx',
     license='MIT',
     packages=find_packages(),  
-    install_requires=[
-        'numpy',
-        'torch',
-        'detectron2',
-        'timm'
-    ],
+    install_requires=requirements,
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
