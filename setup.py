@@ -18,7 +18,7 @@ setup(
     install_requires=requirements,
     dependency_links=[
         'git+https://github.com/facebookresearch/detectron2.git'
-    ]
+    ],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
