@@ -12,6 +12,7 @@ from detectron2.checkpoint import DetectionCheckpointer
 from .adet.data.augmentation import Pad
 from .adet.modeling.vitae_v2.vitae_v2 import ViTAEv2
 
+print ("HERE")
 
 def setup_cfg(config_file: Union[str, Path]):
     cfg = get_cfg()
