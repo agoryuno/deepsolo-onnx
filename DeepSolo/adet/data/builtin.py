@@ -3,7 +3,7 @@ import argparse
 from detectron2.data.datasets.register_coco import register_coco_instances
 from detectron2.data.datasets.builtin_meta import _get_builtin_metadata
 from .datasets.text import register_text_instances
-from adet.config import get_cfg
+from ..config import get_cfg
 from detectron2.engine import default_argument_parser
 
 _PREDEFINED_SPLITS_PIC = {
