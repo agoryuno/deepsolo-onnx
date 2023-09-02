@@ -10,7 +10,7 @@ import detectron2.data.transforms as T
 from detectron2.checkpoint import DetectionCheckpointer
 
 from .adet.data.augmentation import Pad
-print ("HERE")
+print (HERE)
 from .adet.modeling.vitae_v2.vitae_v2 import ViTAEv2
 
 
