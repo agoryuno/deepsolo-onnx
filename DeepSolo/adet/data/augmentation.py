@@ -1,3 +1,4 @@
+print ("HERE")
 import random
 #from typing import Tuple
 #import sys
