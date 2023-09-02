@@ -1,8 +1,11 @@
 import random
-from typing import Tuple
-import sys
-from PIL import Image
+#from typing import Tuple
+#import sys
+#from PIL import Image
 import numpy as np
+
+print (HERE)
+
 from fvcore.transforms import transform as T
 from detectron2.data.transforms import RandomCrop, StandardAugInput
 from detectron2.structures import BoxMode
