@@ -115,7 +115,6 @@ class RandomCropWithInstance(RandomCrop):
 
 class Pad(Augmentation):
     def __init__(self, divisible_size = 32):
-        print (locals())
         super().__init__()
         self._init(locals())
 
