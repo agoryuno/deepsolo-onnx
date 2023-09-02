@@ -4,10 +4,10 @@ from pathlib import Path
 import torch
 
 from detectron2.modeling import build_model
+from detectron2.config import get_cfg
 
 print ("HERE")
 
-from detectron2.config import get_cfg
 from detectron2.engine.defaults import DefaultPredictor
 import detectron2.data.transforms as T
 from detectron2.checkpoint import DetectionCheckpointer
