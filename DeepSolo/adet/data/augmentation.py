@@ -7,7 +7,7 @@ import numpy as np
 from fvcore.transforms import transform as T
 from detectron2.data.transforms import RandomCrop, StandardAugInput
 from detectron2.structures import BoxMode
-import torch
+#import torch
 from detectron2.data.transforms import Augmentation, PadTransform
 from fvcore.transforms.transform import Transform, NoOpTransform
 
@@ -115,6 +115,7 @@ class RandomCropWithInstance(RandomCrop):
 
 class Pad(Augmentation):
     def __init__(self, divisible_size = 32):
+        print (locals())
         super().__init__()
         self._init(locals())
 
