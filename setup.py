@@ -50,14 +50,16 @@ def get_extensions():
 
     ext_modules = [
         extension(
-            "adet._C",
+            "DeepSolo.adet._C",
             sources,
             include_dirs=include_dirs,
             define_macros=define_macros,
             extra_compile_args=extra_compile_args,
         )
     ]
-
+    
+    print (ext_modules)
+    
     return ext_modules
 
 
