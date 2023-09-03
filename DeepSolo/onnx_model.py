@@ -21,7 +21,7 @@ def setup_cfg(config_file: Union[str, Path]):
     return cfg
 
 
-class SimpleONNXReadyModel:
+class SimpleONNXReadyModel(torch.nn.Module):
     def __init__(self, config_path):
         self.cfg = setup_cfg(config_path)
         self.cfg.freeze()
