@@ -17,10 +17,13 @@ from torch.autograd.function import once_differentiable
 from ..config.defaults import _C
 import sys
 
+from ...debug import debug_print
+
 class _MSDeformAttnFunction(torch.autograd.Function):
     @staticmethod
     def forward(ctx, value, value_spatial_shapes, value_level_start_index, sampling_locations, attention_weights, im2col_step):
         ctx.im2col_step = im2col_step
+        debug_print (_C)
         output = _C.ms_deform_attn_forward(
             value, value_spatial_shapes, value_level_start_index, sampling_locations, attention_weights, ctx.im2col_step)
         ctx.save_for_backward(value, value_spatial_shapes, value_level_start_index, sampling_locations, attention_weights)
