@@ -25,7 +25,7 @@ class SimpleONNXReadyModel:
     def __init__(self, config_path):
         self.cfg = setup_cfg(config_path)
         self.cfg.freeze()
-        self.predictor = DefaultPredictor(self.cfg)
+        self.predictor = ViTAEPredictor(self.cfg)
         
     def forward(self, image):
         return self.predictor(image)
@@ -43,7 +43,7 @@ class ViTAEPredictor:
         self.aug = T.ResizeShortestEdge(
             [cfg.INPUT.MIN_SIZE_TEST, cfg.INPUT.MIN_SIZE_TEST], cfg.INPUT.MAX_SIZE_TEST
         )
-        # each size must be divided by 32 with no remainder for ViTAE
+        # each dim must be divisible by 32 with no remainder for ViTAE
         self.pad = Pad(divisible_size=32)
 
         self.input_format = cfg.INPUT.FORMAT
