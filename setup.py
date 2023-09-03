@@ -50,7 +50,7 @@ def get_extensions():
 
     ext_modules = [
         extension(
-            "DeepSolo.ext.C",
+            "C",
             sources,
             include_dirs=include_dirs,
             define_macros=define_macros,
