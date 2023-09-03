@@ -20,15 +20,11 @@ def setup_cfg(config_file: Union[str, Path]):
     return cfg
 
 
-class SimpleONNXReadyModel(torch.nn.Module):
-    def __init__(self, config_path):
-        self.cfg = setup_cfg(config_path)
-        self.cfg.freeze()
-        self.predictor = ViTAEPredictor(self.cfg)
+def SimpleONNXReadyModel(config_path):
+    cfg = setup_cfg(config_path)
+    cfg.freeze()
+    return ViTAEPredictor(cfg)
         
-    def forward(self, image):
-        return self.predictor(image)
-    
 
 class ViTAEPredictor:
     def __init__(self, cfg):
