@@ -4,11 +4,12 @@ from pathlib import Path
 import torch
 
 from detectron2.modeling import build_model
-from detectron2.config import get_cfg
+#from detectron2.config import get_cfg
 from detectron2.engine.defaults import DefaultPredictor
 import detectron2.data.transforms as T
 from detectron2.checkpoint import DetectionCheckpointer
 
+from .adet.config import get_cfg
 from .adet.data.augmentation import Pad
 from .adet.modeling.vitae_v2.vitae_v2 import ViTAEv2
 
