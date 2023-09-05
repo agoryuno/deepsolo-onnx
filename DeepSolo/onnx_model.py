@@ -21,8 +21,9 @@ def setup_cfg(config_file: Union[str, Path]):
     return cfg
 
 
-def SimpleONNXReadyModel(config_path):
+def SimpleONNXReadyModel(config_path, weights_path):
     cfg = setup_cfg(config_path)
+    cfg.MODEL.WEIGHTS = weights_path
     print (cfg)
     cfg.freeze()
     return ViTAEPredictor(cfg)
