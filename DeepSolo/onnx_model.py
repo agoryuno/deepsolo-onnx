@@ -14,16 +14,17 @@ from .adet.data.augmentation import Pad
 from .adet.modeling.vitae_v2.vitae_v2 import ViTAEv2
 
 
-def setup_cfg(config_file: Union[str, Path]):
+def setup_cfg(config_path: Union[str, Path], weights_path: str):
     cfg = get_cfg()
-    cfg.merge_from_file(config_file)
+    cfg.merge_from_file(config_path)
+    weights = ["MODEL.WEIGHTS", weights_path]
+    cfg.merge_from_list(weights)
     cfg.freeze()
     return cfg
 
 
 def SimpleONNXReadyModel(config_path, weights_path):
-    cfg = setup_cfg(config_path)
-    cfg.MODEL.WEIGHTS = weights_path
+    cfg = setup_cfg(config_path, weights_path)
     print (cfg)
     cfg.freeze()
     return ViTAEPredictor(cfg)
