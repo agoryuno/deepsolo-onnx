@@ -74,15 +74,15 @@ class TextVisualizer(Visualizer):
             line = self._process_ctrl_pnt(ctrl_pnt)
             line_ = LineString(line)
             center_point = np.array(line_.interpolate(0.5, normalized=True).coords[0], dtype=np.int32)
-            # self.draw_line(
-            #     line[:, 0],
-            #     line[:, 1],
-            #     color=color,
-            #     linewidth=2
-            # )
-            # for pt in line:
-            #     self.draw_circle(pt, 'w', radius=4)
-            #     self.draw_circle(pt, 'r', radius=2)
+            self.draw_line(
+                line[:, 0],
+                line[:, 1],
+                color=color,
+                linewidth=2
+            )
+            for pt in line:
+                self.draw_circle(pt, 'w', radius=4)
+                self.draw_circle(pt, 'r', radius=2)
 
             # draw text
             text = self._ctc_decode_recognition(rec)
