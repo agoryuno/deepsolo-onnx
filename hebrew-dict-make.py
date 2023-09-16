@@ -13,5 +13,10 @@ with open("hebrew-chars.txt", "r") as f:
 
 print (f"Dictionary size is: {len(chars)}")
 
+chars = [ord(c) for c in chars]
+
+print (f"Dictionary size is: {len(chars)}")
+print ([chr(c) for c in chars][-1])
+
 with open("hebrew-dict.cp", "wb") as f:
     pickle.dump(chars, f)

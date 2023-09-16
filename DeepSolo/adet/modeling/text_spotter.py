@@ -186,6 +186,7 @@ class TransformerPureDetector(nn.Module):
         Normalize, pad and batch the input images.
         """
         images = [self.normalizer(x["image"].to(self.device)) for x in batched_inputs]
+        print (len(images))
         images = ImageList.from_tensors(images)
         return images
 

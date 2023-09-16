@@ -32,7 +32,7 @@ MODEL:
       POINT_TEXT_WEIGHT: 0.5
       BOUNDARY_WEIGHT: 0.5
     CUSTOM_DICT: "/content/drive/MyDrive/deepsolo/hebrew-dict.cp"
-    VOC_SIZE: 75
+    VOC_SIZE: 73
 
 SOLVER:
   WEIGHT_DECAY: 1e-4
