@@ -188,7 +188,7 @@ class TransformerPureDetector(nn.Module):
         
         #if `batched_inputs` contains tensors
         if type(batched_inputs[0]) is torch.Tensor:
-            images = [self.normalizer(x).to(self.device for x in batched_inputs)]
+            images = [self.normalizer(x).to(self.device) for x in batched_inputs]
         else:
             images = [self.normalizer(x["image"].to(self.device)) for x in batched_inputs]
         images = ImageList.from_tensors(images)
