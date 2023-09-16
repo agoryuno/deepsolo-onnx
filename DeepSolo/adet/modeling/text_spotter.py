@@ -176,8 +176,6 @@ class TransformerPureDetector(nn.Module):
             focal_gamma=loss_cfg.FOCAL_GAMMA
         )
 
-        print (f"{self.device=}")
-        
         pixel_mean = torch.Tensor(cfg.MODEL.PIXEL_MEAN).to(self.device).view(3, 1, 1)
         pixel_std = torch.Tensor(cfg.MODEL.PIXEL_STD).to(self.device).view(3, 1, 1)
 
@@ -191,8 +189,7 @@ class TransformerPureDetector(nn.Module):
         
         #if `batched_inputs` contains tensors
         if type(batched_inputs[0]) is torch.Tensor:
-            print (f"{batched_inputs[0].device}")
-            images = [self.normalizer(x).to(self.device) for x in batched_inputs]
+            images = [self.normalizer(x.to(self.device)) for x in batched_inputs]
         else:
             images = [self.normalizer(x["image"].to(self.device)) for x in batched_inputs]
         images = ImageList.from_tensors(images)
