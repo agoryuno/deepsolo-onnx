@@ -213,7 +213,6 @@ class TransformerPureDetector(nn.Module):
                 * "height", "width" (int): the output resolution of the model, used in inference.
                   See :meth:`postprocess` for details.
         """
-        print (f"{batched_inputs=}")
         images = self.preprocess_image(batched_inputs)
         if self.training:
             gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
