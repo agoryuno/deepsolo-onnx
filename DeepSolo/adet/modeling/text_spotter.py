@@ -176,10 +176,10 @@ class TransformerPureDetector(nn.Module):
             focal_gamma=loss_cfg.FOCAL_GAMMA
         )
 
+        print (f"{self.device=}")
+        
         pixel_mean = torch.Tensor(cfg.MODEL.PIXEL_MEAN).to(self.device).view(3, 1, 1)
         pixel_std = torch.Tensor(cfg.MODEL.PIXEL_STD).to(self.device).view(3, 1, 1)
-        
-        print (f"{self.device=}")
 
         self.normalizer = lambda x: (x - pixel_mean) / pixel_std
         self.to(self.device)
