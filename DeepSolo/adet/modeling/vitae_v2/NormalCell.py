@@ -251,14 +251,18 @@ class NormalCell(nn.Module):
             x = shortcut + self.drop_path(self.gamma1 * x)
             x[:, 1:] = x[:, 1:] + convX
         else:
+            print ("at convX")
             # wh = int(math.sqrt(n))
             convX = self.drop_path(
                 self.gamma2 * self.PCM(shortcut.view(b, H, W, c).permute(0, 3, 1, 2).contiguous()).permute(0, 2, 3,
                                                                                                            1).contiguous().view(
                     b, n, c))
+            print ("convX finished")
             x = shortcut + self.drop_path(self.gamma1 * x) + convX
             # x = x + convX
+        print ("final x")
         x = x + self.drop_path(self.gamma3 * self.mlp(self.norm2(x)))
+        print ("done")
         return x
 
 
