@@ -188,10 +188,10 @@ class TransformerPureDetector(nn.Module):
         """
         
         #if `batched_inputs` contains tensors
-        if type(batched_inputs[0]) is torch.Tensor:
-            images = [self.normalizer(x.to(self.device)) for x in batched_inputs]
-        else:
-            images = [self.normalizer(x["image"].to(self.device)) for x in batched_inputs]
+        #if type(batched_inputs[0]) is torch.Tensor:
+        #    images = [self.normalizer(x.to(self.device)) for x in batched_inputs]
+        #else:
+        images = [self.normalizer(x["image"].to(self.device)) for x in batched_inputs]
         images = ImageList.from_tensors(images)
         return images
 
@@ -211,6 +211,12 @@ class TransformerPureDetector(nn.Module):
                 * "height", "width" (int): the output resolution of the model, used in inference.
                   See :meth:`postprocess` for details.
         """
+
+        # if `batched_inputs` contains tensors - we are in an ONNX export
+        # process, so we recreate the inputs in the format DeepSolo expects
+        if type(batched_inputs[0]) is torch.Tensor:
+            batched_inputs = [{"image": x} for x in batched_inputs]
+
         images = self.preprocess_image(batched_inputs)
         if self.training:
             gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
