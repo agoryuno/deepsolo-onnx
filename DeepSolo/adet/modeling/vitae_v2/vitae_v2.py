@@ -88,6 +88,8 @@ class BasicLayer(nn.Module):
         for nc in self.NC:
             nc.H = h
             nc.W = w
+            print (f"{nc.H=}")
+            print (f"{nc.W=}")
             if self.use_checkpoint:
                 x = checkpoint.checkpoint(nc, x)
             else:
