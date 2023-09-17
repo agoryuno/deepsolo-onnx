@@ -164,6 +164,7 @@ class NormalCell(nn.Module):
 
     def forward(self, x):
 
+        print ("In NC.forward()")
         b, n, c = x.shape
         H, W = self.H, self.W
         assert n == H * W
