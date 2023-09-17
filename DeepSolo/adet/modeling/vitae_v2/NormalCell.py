@@ -169,7 +169,9 @@ class NormalCell(nn.Module):
         H, W = self.H, self.W
         assert n == H * W
         shortcut = x
+        print (f"{self.tokens_type=}")
         if self.tokens_type == 'window':
+            
             padding_td = (self.window_size - H % self.window_size) % self.window_size
             padding_top = padding_td // 2
             padding_down = padding_td - padding_top
@@ -206,21 +208,29 @@ class NormalCell(nn.Module):
             x = x.view(b, H, W, c).permute(0, 3, 1, 2)
             x = nn.functional.pad(x, (padding_left, padding_right, padding_top, padding_down))
             x = x.permute(0, 2, 3, 1)
+            
+            print ("at cyclic shift")
             # cyclic shift
             if shift_size > 0:
                 shifted_x = torch.roll(x, shifts=(-shift_size, -shift_size), dims=(1, 2))
             else:
                 shifted_x = x
+
+            print ("at partition windows")
             # partition windows
             x_windows = window_partition(shifted_x, self.window_size)  # nW*B, window_size, window_size, C
             x_windows = x_windows.view(-1, self.window_size * self.window_size, c)  # nW*B, window_size*window_size, C
+
+            print ("at W-MSA/SW-MSA")
             # W-MSA/SW-MSA
             attn_windows = self.attn(x_windows, mask=attn_mask)  # nW*B, window_size*window_size, C
 
+            print ("at merge windows")
             # merge windows
             attn_windows = attn_windows.view(-1, self.window_size, self.window_size, c)
             shifted_x = window_reverse(attn_windows, self.window_size, H + padding_td, W + padding_lr)  # B H' W' C
 
+            print ("at reverse cyclic shift")
             # reverse cyclic shift
             if shift_size > 0:
                 x = torch.roll(shifted_x, shifts=(shift_size, shift_size), dims=(1, 2))
@@ -231,6 +241,7 @@ class NormalCell(nn.Module):
         else:
             x = self.gamma1 * self.attn(self.norm1(x))
 
+        print (f"{self.class_token}")
         if self.class_token:
             n = n - 1
             wh = int(math.sqrt(n))
