@@ -88,12 +88,7 @@ class BasicLayer(nn.Module):
         for nc in self.NC:
             nc.H = h
             nc.W = w
-            print (f"{nc=}")
-            print (f"{nc.H=}")
-            print (f"{nc.W=}")
-            print (f"{x=}")
             if self.use_checkpoint:
-                print ("executing checkpoint")
                 # setting use_reentrant to False as an experiment
                 x = checkpoint.checkpoint(nc, x, use_reentrant=False)
             else:
