@@ -247,10 +247,8 @@ class TransformerPureDetector(nn.Module):
                 bd_points,
                 images.image_sizes
             )
-
-            # when exporting to ONNX `batched_inputs` is a list of tensors,
-            # while this method expects to get a dict, so we check for this
-            # eventuality here and 
+            
+            print (f"{results=}")
             processed_results = []
             for results_per_image, input_per_image, image_size in zip(results, 
                                                                       batched_inputs_dict, 
