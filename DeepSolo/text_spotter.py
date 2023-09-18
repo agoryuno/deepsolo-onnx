@@ -70,6 +70,7 @@ def detector_postprocess(results, output_height, output_width, min_size=None, ma
     """
     scale align
     """
+    print (results)
     if min_size and max_size:
         # to eliminate the padding influence for ViTAE backbone results
         size = min_size * 1.0
