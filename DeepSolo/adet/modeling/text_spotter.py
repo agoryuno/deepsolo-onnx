@@ -248,7 +248,8 @@ class TransformerPureDetector(nn.Module):
                 images.image_sizes
             )
             
-            print (f"{results=}")
+            print (f"{len(results)=}")
+            print (f"{results[0].scores=}")
             processed_results = []
             for results_per_image, input_per_image, image_size in zip(results, 
                                                                       batched_inputs_dict, 
