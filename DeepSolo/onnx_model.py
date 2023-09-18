@@ -2,6 +2,7 @@ from typing import Union
 from pathlib import Path
 
 import torch
+import numpy as np
 
 from detectron2.modeling import build_model
 #from detectron2.config import get_cfg
@@ -33,6 +34,13 @@ class ViTAEPredictor:
     def __init__(self, cfg):
         self.cfg = cfg.clone()
         print (self.cfg)
+
+        # `self.cfg` contains a setting `META.MODEL_ARCHITECTUR`
+        # which is set to `TransformerPureDetector` 
+        # `build_model()` uses that setting to instantiate 
+        # `adet.modelling.text_spotter.TransformerPureDetector` as
+        # the underlying model. `TransformerPureDetector` is a `torch.nn.Module`
+        # that performs the actual work
         self.model = build_model(self.cfg)
         self.model.eval()
 
@@ -68,3 +76,24 @@ class ViTAEPredictor:
             inputs = {"image": image, "height": height, "width": width}
             predictions = self.model([inputs])[0]
             return predictions
+        
+    def export_to_onnx(self, output_file, height=1024, width=1024, channels=3,
+                       export_params=True,
+                       do_constant_folding=True):
+        self.onnx_export = True
+        H, W, C = height, width, channels
+        image = np.random.randint(0, 256, (H, W, C), dtype=np.uint8)
+        image = self.aug.get_transform(image).apply_image(image)
+        image = self.pad.get_transform(image).apply_image(image)
+
+        with torch.no_grad():
+            image = torch.as_tensor(image.astype("float32").transpose(2, 0, 1))
+            torch.onnx.export(
+                [image],
+                output_file,
+                export_params,
+                do_constant_folding,
+            )
+        
+
+        predictions = self.model(image)[0]

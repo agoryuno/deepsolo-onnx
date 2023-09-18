@@ -297,6 +297,12 @@ class TransformerPureDetector(nn.Module):
             bd_points,
             image_sizes
     ):
+        print (f"{type(ctrl_point_cls)=}, {ctrl_point_cls=}")
+        print (f"{type(ctrl_point_coord)=}, {ctrl_point_coord=}")
+        print (f"{type(ctrl_point_text)=}, {ctrl_point_text=}")
+        print (f"{type(bd_points)=}, {bd_points=}")
+        print (f"{type(image_sizes)=}, {bd_points=}")
+        
         assert len(ctrl_point_cls) == len(image_sizes)
         results = []
         # cls shape: (b, nq, n_pts, voc_size)
@@ -351,3 +357,16 @@ class TransformerPureDetector(nn.Module):
                 result.bd = [None] * len(scores_per_image)
                 results.append(result)
             return results
+
+
+@META_ARCH_REGISTRY.register()
+class ONNXExporterDetector(TransformerPureDetector):
+    def inference(
+            self,
+            ctrl_point_cls,
+            ctrl_point_coord,
+            ctrl_point_text,
+            bd_points,
+            image_sizes
+    ):
+        ...
