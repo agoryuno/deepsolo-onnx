@@ -121,6 +121,10 @@ class TransformerPureDetector(nn.Module):
             self.min_size_test = cfg.INPUT.MIN_SIZE_TEST
             self.max_size_test = cfg.INPUT.MAX_SIZE_TEST
 
+        # This is for ONNX export
+        self.output_dims = {"height": cfg.INPUT.HEIGHT,
+                            "weight": cfg.INPUT.WIDTH}
+        
         d2_backbone = MaskedBackbone(cfg)
         backbone = Joiner(
             d2_backbone,
@@ -213,9 +217,11 @@ class TransformerPureDetector(nn.Module):
         """
 
         # if `batched_inputs` contains tensors - we are in an ONNX export
-        # process, so we recreate the inputs in the format DeepSolo expects
-        #if type(batched_inputs[0]) is torch.Tensor:
-        #    batched_inputs = [{"image": x} for x in batched_inputs]
+        # process, so we create a new input object
+        batched_inputs_dict = batched_inputs
+        if type(batched_inputs[0]) is torch.Tensor:
+            batched_inputs_dict = [{**{"image": x}, **self.output_dims} 
+                                    for x in batched_inputs]
 
         images = self.preprocess_image(batched_inputs)
         if self.training:
@@ -241,8 +247,14 @@ class TransformerPureDetector(nn.Module):
                 bd_points,
                 images.image_sizes
             )
+
+            # when exporting to ONNX `batched_inputs` is a list of tensors,
+            # while this method expects to get a dict, so we check for this
+            # eventuality here and 
             processed_results = []
-            for results_per_image, input_per_image, image_size in zip(results, batched_inputs, images.image_sizes):
+            for results_per_image, input_per_image, image_size in zip(results, 
+                                                                      batched_inputs_dict, 
+                                                                      images.image_sizes):
                 height = input_per_image.get("height", image_size[0])
                 width = input_per_image.get("width", image_size[1])
                 r = detector_postprocess(results_per_image, height, width, self.min_size_test, self.max_size_test)

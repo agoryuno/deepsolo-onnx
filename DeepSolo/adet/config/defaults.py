@@ -12,6 +12,13 @@ _C.INPUT.HFLIP_TRAIN = False
 _C.INPUT.CROP.CROP_INSTANCE = True
 _C.INPUT.ROTATE = True
 
+# ---------------------------------------------------------------------------- # 
+# Height and width settings for ONNX export
+# ---------------------------------------------------------------------------- # 
+_C.INPUT.HEIGHT = 1024
+_C.INPUT.WIDTH = 1024
+
+
 _C.MODEL.BASIS_MODULE = CN()
 _C.MODEL.BASIS_MODULE.NAME = "ProtoNet"
 _C.MODEL.BASIS_MODULE.NUM_BASES = 4
