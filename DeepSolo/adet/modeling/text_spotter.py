@@ -68,15 +68,13 @@ class MaskedBackbone(nn.Module):
 
 def detector_postprocess(
             results: list[Instances], 
-            output_height, 
-            output_width, 
+            output_height: int, 
+            output_width: int, 
             min_size: Optional[int] = None, 
             max_size: Optional[int] = None) -> list[Instances]:
     """
     scale align
     """
-    print (f"{type(output_height)=}, {output_height=}")
-    print (f"{type(output_width)=}, {output_width=}")
     if min_size and max_size:
         # to eliminate the padding influence for ViTAE backbone results
         size = min_size * 1.0
@@ -264,6 +262,7 @@ class TransformerPureDetector(nn.Module):
                 r = detector_postprocess(results_per_image, height, width, self.min_size_test, self.max_size_test)
                 processed_results.append({"instances": r})
 
+            print (f"{type(processed_results)=}, {processed_results=}")
             return processed_results
 
     def prepare_targets(self, targets):
