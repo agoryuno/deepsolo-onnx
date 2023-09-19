@@ -76,24 +76,3 @@ class ViTAEPredictor:
             inputs = {"image": image, "height": height, "width": width}
             predictions = self.model([inputs])[0]
             return predictions
-        
-    def export_to_onnx(self, output_file, height=1024, width=1024, channels=3,
-                       export_params=True,
-                       do_constant_folding=True):
-        self.onnx_export = True
-        H, W, C = height, width, channels
-        image = np.random.randint(0, 256, (H, W, C), dtype=np.uint8)
-        image = self.aug.get_transform(image).apply_image(image)
-        image = self.pad.get_transform(image).apply_image(image)
-
-        with torch.no_grad():
-            image = torch.as_tensor(image.astype("float32").transpose(2, 0, 1))
-            torch.onnx.export(
-                [image],
-                output_file,
-                export_params,
-                do_constant_folding,
-            )
-        
-
-        predictions = self.model(image)[0]
