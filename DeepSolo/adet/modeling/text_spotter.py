@@ -359,6 +359,7 @@ class TransformerPureDetector(nn.Module):
 @META_ARCH_REGISTRY.register()
 class ONNXExporterDetector(TransformerPureDetector):
     def forward(self, batched_images) -> list[tuple]:
+        print ("in overloaded forward()")
         processed_results: list[Instances] = super().forward(batched_images)
 
         # convert Instances objects to tuples
