@@ -358,20 +358,36 @@ class TransformerPureDetector(nn.Module):
 
 @META_ARCH_REGISTRY.register()
 class ONNXExporterDetector(TransformerPureDetector):
-    def forward(self, batched_images) -> list[tuple]:
-        print ("in overloaded forward()")
-        processed_results: list[Instances] = super().forward(batched_images)
 
-        # convert Instances objects to tuples
-        results = []
-        for result in processed_results:
-            insts = result["instances"]
-            print (f"{dir(insts)=}")
-            print (f"{insts.image_size=}")
-            new_result = (len(insts),
-                          insts.image_size,
-                          insts.scores,
-                          insts.pred_classes,
-                          )
-            results.append(new_result)
-        return results
+
+    def forward(self, batched_inputs) -> list[tuple]:
+        """
+        Args:
+            batched_inputs: a list, batched outputs of :class:`DatasetMapper` .
+                Each item in the list contains the inputs for one image.
+                For now, each item in the list is a dict that contains:
+
+                * image: Tensor, image in (C, H, W) format.
+                * instances (optional): groundtruth :class:`Instances`
+                * proposals (optional): :class:`Instances`, precomputed proposals.
+
+                Other information that's included in the original dicts, such as:
+
+                * "height", "width" (int): the output resolution of the model, used in inference.
+                  See :meth:`postprocess` for details.
+        """
+
+        # if `batched_inputs` contains tensors - we are in an ONNX export
+        # process, so we create a new input object
+        batched_inputs_dict = [{**{"image": x}, **self.output_dims} 
+                                    for x in batched_inputs]
+
+        images = self.preprocess_image(batched_inputs)
+
+        output = self.detection_transformer(images)
+        ctrl_point_cls = output["pred_logits"]
+        ctrl_point_coord = output["pred_ctrl_points"]
+        ctrl_point_text = output["pred_text_logits"]
+        bd_points = output["pred_bd_points"]
+
+        return [ctrl_point_cls, ctrl_point_coord, ctrl_point_text, bd_points]
