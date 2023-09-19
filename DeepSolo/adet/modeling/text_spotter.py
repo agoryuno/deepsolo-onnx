@@ -300,7 +300,7 @@ class TransformerPureDetector(nn.Module):
         print (f"{type(image_sizes)=}, {image_sizes=}")
         print (f"{ctrl_point_cls.shape=}")
 
-        assert len(ctrl_point_cls) == len(image_sizes)
+        assert ctrl_point_cls.shape[0] == len(image_sizes)
         results = []
         # cls shape: (b, nq, n_pts, voc_size)
         ctrl_point_text = torch.softmax(ctrl_point_text, dim=-1)
