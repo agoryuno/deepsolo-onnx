@@ -204,7 +204,7 @@ class TransformerPureDetector(nn.Module):
         images = ImageList.from_tensors(images)
         return images
 
-    def forward(self, batched_inputs):
+    def forward(self, batched_inputs) -> list[Instances]:
         """
         Args:
             batched_inputs: a list, batched outputs of :class:`DatasetMapper` .
@@ -262,7 +262,6 @@ class TransformerPureDetector(nn.Module):
                 r = detector_postprocess(results_per_image, height, width, self.min_size_test, self.max_size_test)
                 processed_results.append({"instances": r})
 
-            print (f"{type(processed_results)=}, {processed_results=}")
             return processed_results
 
     def prepare_targets(self, targets):
@@ -359,12 +358,19 @@ class TransformerPureDetector(nn.Module):
 
 @META_ARCH_REGISTRY.register()
 class ONNXExporterDetector(TransformerPureDetector):
-    def inference(
-            self,
-            ctrl_point_cls,
-            ctrl_point_coord,
-            ctrl_point_text,
-            bd_points,
-            image_sizes
-    ):
-        ...
+    def forward(self, batched_images) -> list[tuple]:
+        processed_results: list[Instances] = super().forward(batched_images)
+
+        # convert Instances objects to tuples
+        results = []
+        for result in processed_results:
+            insts = result["instances"]
+            new_result = (insts.num_instances,
+                          insts.image_height,
+                          insts.image_width,
+                          insts.scores,
+                          insts.device,
+                          insts.pred_classes,
+                          )
+            results.append(new_result)
+        return results
