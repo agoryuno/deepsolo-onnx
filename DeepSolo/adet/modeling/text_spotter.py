@@ -249,6 +249,7 @@ class TransformerPureDetector(nn.Module):
             )
             
             print (f"{type(results)=}")
+            print (f"{results[0]=}")
             print (f"{len(results)=}")
             print (f"{results[0].scores=}")
             processed_results = []
