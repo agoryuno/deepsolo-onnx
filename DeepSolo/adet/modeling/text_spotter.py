@@ -370,8 +370,8 @@ class ONNXExporterDetector(TransformerPureDetector):
             print (f"{insts.image_size=}")
             new_result = (len(insts),
                           insts.image_size,
-                          insts["scores"],
-                          insts["pred_classes"],
+                          insts.scores,
+                          insts.pred_classes,
                           )
             results.append(new_result)
         return results
