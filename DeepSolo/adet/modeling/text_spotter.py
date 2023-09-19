@@ -291,18 +291,15 @@ class TransformerPureDetector(nn.Module):
 
     def inference(
             self,
-            ctrl_point_cls,
-            ctrl_point_coord,
-            ctrl_point_text,
-            bd_points,
-            image_sizes
+            ctrl_point_cls: torch.Tensor,
+            ctrl_point_coord: torch.Tensor,
+            ctrl_point_text: torch.Tensor,
+            bd_points: torch.Tensor,
+            image_sizes: list,
     ):
-        print (f"{type(ctrl_point_cls)=}, {ctrl_point_cls=}")
-        print (f"{type(ctrl_point_coord)=}, {ctrl_point_coord=}")
-        print (f"{type(ctrl_point_text)=}, {ctrl_point_text=}")
-        print (f"{type(bd_points)=}, {bd_points=}")
-        print (f"{type(image_sizes)=}, {bd_points=}")
-        
+        print (f"{type(image_sizes)=}, {image_sizes=}")
+        print (f"{ctrl_point_cls.shape=}")
+
         assert len(ctrl_point_cls) == len(image_sizes)
         results = []
         # cls shape: (b, nq, n_pts, voc_size)
