@@ -367,7 +367,8 @@ class ONNXExporterDetector(TransformerPureDetector):
         for result in processed_results:
             insts = result["instances"]
             print (f"{dir(insts)=}")
-            new_result = (insts.num_instances,
+            print (f"{insts.image_size=}")
+            new_result = (len(insts),
                           insts.image_height,
                           insts.image_width,
                           insts.scores,
