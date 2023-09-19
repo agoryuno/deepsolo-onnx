@@ -248,6 +248,7 @@ class TransformerPureDetector(nn.Module):
                 images.image_sizes
             )
             
+            print (f"{type(results)=}")
             print (f"{len(results)=}")
             print (f"{results[0].scores=}")
             processed_results = []
@@ -295,11 +296,8 @@ class TransformerPureDetector(nn.Module):
             ctrl_point_coord: torch.Tensor,
             ctrl_point_text: torch.Tensor,
             bd_points: torch.Tensor,
-            image_sizes: list,
+            image_sizes: list[torch.Tensor],
     ):
-        print (f"{type(image_sizes)=}, {image_sizes=}")
-        print (f"{ctrl_point_cls.shape=}")
-
         assert ctrl_point_cls.shape[0] == len(image_sizes)
         results = []
         # cls shape: (b, nq, n_pts, voc_size)
