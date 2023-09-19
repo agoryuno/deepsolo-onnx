@@ -1,4 +1,4 @@
-from typing import List
+from typing import Optional
 import numpy as np
 import torch
 from torch import nn
@@ -19,7 +19,7 @@ class Joiner(nn.Sequential):
 
     def forward(self, tensor_list: NestedTensor):
         xs = self[0](tensor_list)
-        out: List[NestedTensor] = []
+        out: list[NestedTensor] = []
         pos = []
         for _, x in xs.items():
             out.append(x)
@@ -70,16 +70,14 @@ def detector_postprocess(
             results: list[Instances], 
             output_height, 
             output_width, 
-            min_size=None, 
-            max_size=None):
+            min_size: Optional[int] = None, 
+            max_size: Optional[int] = None) -> list[Instances]:
     """
     scale align
     """
-    print (f"{type(output_height)=}")
-    print (f"{type(output_width)=}")
+    print (f"{type(output_height)=}, {output_height=}")
+    print (f"{type(output_width)=}, {output_width=}")
     if min_size and max_size:
-        print (f"{type(min_size)=}")
-        print (f"{type(max_size)=}")
         # to eliminate the padding influence for ViTAE backbone results
         size = min_size * 1.0
         scale_img_size = min_size / min(output_width, output_height)
@@ -108,7 +106,6 @@ def detector_postprocess(
         bd[..., 0::2] *= scale_x
         bd[..., 1::2] *= scale_y
 
-    print (f"Outgoing {type(results)=}, {results[0]=}")
     return results
 
 
