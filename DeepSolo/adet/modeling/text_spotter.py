@@ -260,6 +260,8 @@ class TransformerPureDetector(nn.Module):
                                                                       batched_inputs_dict, 
                                                                       images.image_sizes):
                 print (f"{type(image_size)=}, {image_size=}")
+                print (f"{input_per_image.get('height')=}")
+                print (f"{input_per_image.get('width')=}")
                 height = input_per_image.get("height", image_size[0])
                 width = input_per_image.get("width", image_size[1])
                 r = detector_postprocess(results_per_image, height, width, self.min_size_test, self.max_size_test)
