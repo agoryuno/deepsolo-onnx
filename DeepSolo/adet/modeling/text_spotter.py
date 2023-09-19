@@ -66,11 +66,20 @@ class MaskedBackbone(nn.Module):
         return masks
 
 
-def detector_postprocess(results, output_height, output_width, min_size=None, max_size=None):
+def detector_postprocess(
+            results: list[Instances], 
+            output_height, 
+            output_width, 
+            min_size=None, 
+            max_size=None):
     """
     scale align
     """
+    print (f"{type(output_height)=}")
+    print (f"{type(output_width)=}")
     if min_size and max_size:
+        print (f"{type(min_size)=}")
+        print (f"{type(max_size)=}")
         # to eliminate the padding influence for ViTAE backbone results
         size = min_size * 1.0
         scale_img_size = min_size / min(output_width, output_height)
@@ -99,6 +108,7 @@ def detector_postprocess(results, output_height, output_width, min_size=None, ma
         bd[..., 0::2] *= scale_x
         bd[..., 1::2] *= scale_y
 
+    print (f"Outgoing {type(results)=}, {results[0]=}")
     return results
 
 
@@ -248,10 +258,6 @@ class TransformerPureDetector(nn.Module):
                 images.image_sizes
             )
             
-            print (f"{type(results)=}")
-            print (f"{results[0]=}")
-            print (f"{len(results)=}")
-            print (f"{results[0].scores=}")
             processed_results = []
             for results_per_image, input_per_image, image_size in zip(results, 
                                                                       batched_inputs_dict, 
@@ -298,7 +304,7 @@ class TransformerPureDetector(nn.Module):
             ctrl_point_text: torch.Tensor,
             bd_points: torch.Tensor,
             image_sizes: list[torch.Tensor],
-    ):
+    ) -> list[Instances]:
         assert ctrl_point_cls.shape[0] == len(image_sizes)
         results = []
         # cls shape: (b, nq, n_pts, voc_size)
