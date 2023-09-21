@@ -25,4 +25,8 @@ You will need to supply the original model's checkpoint for conversion. You can 
 at the main DeepSolo repository: https://github.com/ViTAE-Transformer/DeepSolo
 
 I save my checkpoints in Google Drive for easy and repeatable access from Colab. But simply uploading to the instance's `/content` folder also works fine.
+
+## Output format
+
+TBD
  
