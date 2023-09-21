@@ -26,4 +26,8 @@ I save my checkpoints in Google Drive for easy and repeatable access from Colab.
 ## Output format
 
 TBD
+
+## Running inference
+
+TBD
  
