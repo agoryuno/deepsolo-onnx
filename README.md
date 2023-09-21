@@ -1,8 +1,5 @@
 # DeepSolo-ONNX
 
-
-## General
-
 This is a slimmed down version of the code for the scene text recognition
 model DeepSolo. See the original codebase here: https://github.com/ViTAE-Transformer/DeepSolo
 
