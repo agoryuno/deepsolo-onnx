@@ -16,7 +16,7 @@ next section for what you should do instead.
 
 ## Using
 
-You can use this (Google Colab notebook)[https://colab.research.google.com/drive/1oANvLQekE_6Equ_ld5W4lTR0Kpav09_Q?usp=sharing] to convert a checkpoint of your choosing
+You can use this [Google Colab notebook](https://colab.research.google.com/drive/1oANvLQekE_6Equ_ld5W4lTR0Kpav09_Q?usp=sharing) to convert a checkpoint of your choosing
 to ONNX in 4 easy steps.
 
 ## Original checkpoint
