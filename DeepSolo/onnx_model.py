@@ -33,7 +33,6 @@ def SimpleONNXReadyModel(config_path, weights_path):
 class ViTAEPredictor:
     def __init__(self, cfg):
         self.cfg = cfg.clone()
-        print (self.cfg)
 
         # `self.cfg` contains a setting `META.MODEL_ARCHITECTUR`
         # which is set to `TransformerPureDetector` 
