@@ -55,6 +55,10 @@ VOC_SIZE = 37
 
 setting it to whatever number of characters is in your language's alphabet.
 
+### Add the alphabet file to config
+
+TBD
+
 ### Specify the new config
 
 Replace the base config in the Google Colab notebook with your version (uploading the
