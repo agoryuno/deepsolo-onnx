@@ -379,9 +379,6 @@ class ONNXExporterDetector(TransformerPureDetector):
 
         # if `batched_inputs` contains tensors - we are in an ONNX export
         # process, so we create a new input object
-        batched_inputs_dict = [{**{"image": x}, **self.output_dims} 
-                                    for x in batched_inputs]
-
         images = self.preprocess_image(batched_inputs)
 
         output = self.detection_transformer(images)
