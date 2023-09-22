@@ -55,10 +55,6 @@ VOC_SIZE = 37
 
 setting it to whatever number of characters is in your language's alphabet.
 
-### Add the alphabet file to config
-
-TBD
-
 ### Specify the new config
 
 Replace the base config in the Google Colab notebook with your version (uploading the
@@ -66,11 +62,18 @@ new config or saving it to Drive).
 
 Done.
 
-## Output format
-
-TBD
-
 ## Running inference
 
-TBD
+Look at `notebooks/inference.ipynb` for an example of how to perform inference with a single image.
+
+## Output format
+
+The model's `run()` method returns a list with a tensor containing:
+
+    - center line prediction logits;
+    - center line point coordinates;
+    - text prediction logits;
+    - bounding box points coordinate.
+
+
  
