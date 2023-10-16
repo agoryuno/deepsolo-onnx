@@ -73,7 +73,8 @@ class ViTAEPredictor(nn.Module):
                 #original_image = original_image[:, :, ::-1]
                 original_image = torch.flip(original_image, [-1])
             height, width = original_image.shape[:2]
-            print (height,width)
+            height = height.item()
+            width = width.item()
             #image = self.aug.get_transform(original_image).apply_image(original_image)
             #image = self.pad.get_transform(image).apply_image(image)
             #image = torch.as_tensor(image.astype("float32").transpose(2, 0, 1))
