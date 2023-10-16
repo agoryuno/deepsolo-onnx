@@ -2,6 +2,7 @@ from typing import Union
 from pathlib import Path
 
 import torch
+from torch import nn
 import numpy as np
 
 from detectron2.modeling import build_model
@@ -30,7 +31,7 @@ def SimpleONNXReadyModel(config_path, weights_path):
     return ViTAEPredictor(cfg)
         
 
-class ViTAEPredictor:
+class ViTAEPredictor(nn.Module):
     def __init__(self, cfg):
         self.cfg = cfg.clone()
 
