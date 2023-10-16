@@ -77,7 +77,7 @@ class ViTAEPredictor(nn.Module):
             #image = self.aug.get_transform(original_image).apply_image(original_image)
             #image = self.pad.get_transform(image).apply_image(image)
             #image = torch.as_tensor(image.astype("float32").transpose(2, 0, 1))
-            image = original_image.to("float32")
+            image = original_image.to(torch.float32)
             inputs = {"image": image, "height": height, "width": width}
             predictions = self.model([inputs])[0]
             return predictions
