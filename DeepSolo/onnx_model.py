@@ -67,6 +67,7 @@ class ViTAEPredictor(nn.Module):
                 the output of the model for one image only.
                 See :doc:`/tutorials/models` for details about the format.
         """
+        original_image = original_image[0]
         with torch.no_grad():  # https://github.com/sphinx-doc/sphinx/issues/4258
             if self.input_format == "RGB":
                 original_image = original_image[:, :, ::-1]
