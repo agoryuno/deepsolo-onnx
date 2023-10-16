@@ -33,6 +33,7 @@ def SimpleONNXReadyModel(config_path, weights_path):
 
 class ViTAEPredictor(nn.Module):
     def __init__(self, cfg):
+        super().__init__()
         self.cfg = cfg.clone()
 
         # `self.cfg` contains a setting `META.MODEL_ARCHITECTUR`
