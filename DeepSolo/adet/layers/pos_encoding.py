@@ -61,7 +61,8 @@ class PositionalEncoding2D(nn.Module):
 
     def forward(self, tensors: torch.Tensor):
         print(dir(tensors))
-        x = tensors.tensor
+        print (type(tensors.tensors))
+        x = tensors.tensors
         mask = tensors.mask
         assert mask is not None
         not_mask = ~mask
