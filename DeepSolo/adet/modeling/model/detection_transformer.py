@@ -166,6 +166,8 @@ class DETECTION_TRANSFORMER(nn.Module):
                - samples.mask: a binary mask of shape [batch_size x H x W], containing 1 on padded pixels
         """
         features, pos = self.backbone(samples)
+        print (f"{features=}")
+        print (f"{pos=}")
 
         srcs = []
         masks = []
