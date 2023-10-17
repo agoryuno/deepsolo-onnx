@@ -164,8 +164,8 @@ class DETECTION_TRANSFORMER(nn.Module):
                - samples.mask: a binary mask of shape [batch_size x H x W], containing 1 on padded pixels
         """
         if isinstance(samples, (list, torch.Tensor)):
-            print ("test")
             samples = nested_tensor_from_tensor_list(samples)
+        print (type(samples))
         features, pos = self.backbone(samples)
 
         srcs = []
