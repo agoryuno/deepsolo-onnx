@@ -66,6 +66,7 @@ class PositionalEncoding2D(nn.Module):
         #not_mask = ~mask
         y_embed = x.cumsum(1, dtype=torch.float32)
         x_embed = x.cumsum(2, dtype=torch.float32)
+        print (y_embed.shape, x_embed.shape, tensor.shape)
         if self.normalize:
             eps = 1e-6
             y_embed = (y_embed - 0.5) / (y_embed[:, -1:, :] + eps) * self.scale
