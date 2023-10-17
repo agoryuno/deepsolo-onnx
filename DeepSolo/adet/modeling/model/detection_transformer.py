@@ -162,7 +162,7 @@ class DETECTION_TRANSFORMER(nn.Module):
         """ 
         The forward expects batched images, of shape [batch_size x 3 x H x W]
         """
-        samples = nested_tensor_from_tensor_list(samples)
+        samples = nested_tensor_from_tensor_list(images)
         features, pos = self.backbone(samples)
 
         srcs = []
