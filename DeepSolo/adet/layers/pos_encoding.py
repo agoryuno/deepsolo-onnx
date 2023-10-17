@@ -60,7 +60,7 @@ class PositionalEncoding2D(nn.Module):
         self.scale = scale
 
     def forward(self, tensors: torch.Tensor):
-        dir(tensors)
+        print(dir(tensors))
         x = tensors.tensor
         mask = tensors.mask
         assert mask is not None
