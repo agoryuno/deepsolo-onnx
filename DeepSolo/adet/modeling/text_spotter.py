@@ -51,6 +51,7 @@ class MaskedBackbone(nn.Module):
         )
         for mask in masks:
             print (f"{mask=}")
+            print (f"{mask.shape=}")
         assert len(features) == len(masks)
         for i, k in enumerate(features.keys()):
             features[k] = NestedTensor(features[k], masks[i])
