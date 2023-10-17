@@ -63,8 +63,8 @@ class PositionalEncoding2D(nn.Module):
         print ("="*100)
         print ("="*100)
         #x = tensors.tensors
-        y_embed = torch.arange(1, x.shape[-1]+1).view(x.shape[-1], 1).expand(x.shape[:1] + x.shape[-2:])
-        x_embed = torch.arange(1, x.shape[-1]+1).view(1, x.shape[-1]).expand(x.shape[:1] + x.shape[-2:])
+        y_embed = torch.arange(1, x.shape[-1]+1).view(x.shape[-1], 1).expand(x.shape[:1] + x.shape[-2:]).to(x.device, dtype=torch.float32)
+        x_embed = torch.arange(1, x.shape[-1]+1).view(1, x.shape[-1]).expand(x.shape[:1] + x.shape[-2:]).to(x.device, dtype=torch.float32)
         #mask = tensors.mask
         #assert mask is not None
         #not_mask = ~mask
