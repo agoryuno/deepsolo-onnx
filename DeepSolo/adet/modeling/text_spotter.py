@@ -50,7 +50,6 @@ class MaskedBackbone(nn.Module):
             images.tensor.device,
         )
         for mask in masks:
-            print (f"{mask=}")
             print (f"{mask.shape=}")
             print (f"{torch.sum(mask)=}")
         assert len(features) == len(masks)
