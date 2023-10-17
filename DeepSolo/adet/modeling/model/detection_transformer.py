@@ -158,11 +158,14 @@ class DETECTION_TRANSFORMER(nn.Module):
 
         self.to(self.device)
 
-    def forward(self, images: list[torch.Tensor]):
-        """ 
-        The forward expects batched images, of shape [batch_size x 3 x H x W]
+    def forward(self, samples: list[torch.Tensor]):
+        """ The forward expects a NestedTensor, which consists of:
+               - samples.tensor: batched images, of shape [batch_size x 3 x H x W]
+               - samples.mask: a binary mask of shape [batch_size x H x W], containing 1 on padded pixels
         """
-        samples = nested_tensor_from_tensor_list(images)
+        if isinstance(samples, (list, torch.Tensor)):
+            print ("test")
+            samples = nested_tensor_from_tensor_list(samples)
         features, pos = self.backbone(samples)
 
         srcs = []
