@@ -65,7 +65,6 @@ class ViTAEPredictor(nn.Module):
         Returns:
             predictions (dict):
                 the output of the model for one image only.
-                See :doc:`/tutorials/models` for details about the format.
         """
         original_image = original_image[0]
         with torch.no_grad():  # https://github.com/sphinx-doc/sphinx/issues/4258
@@ -80,5 +79,5 @@ class ViTAEPredictor(nn.Module):
             #image = torch.as_tensor(image.astype("float32").transpose(2, 0, 1))
             image = original_image.to(torch.float32)
             inputs = {"image": image, "height": height, "width": width}
-            predictions = self.model([inputs])[0]
+            predictions = self.model([inputs])
             return predictions
