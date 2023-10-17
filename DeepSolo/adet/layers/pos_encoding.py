@@ -59,23 +59,23 @@ class PositionalEncoding2D(nn.Module):
             scale = 2 * np.pi
         self.scale = scale
 
-    def forward(self, tensors: torch.Tensor):
+    def forward(self, x: torch.Tensor):
         print ("="*100)
         print ("="*100)
-        x = tensors.tensors
-        y_embed2 = torch.arange(1, x.shape[-1]+1).view(x.shape[-1], 1).expand(x.shape[:1] + x.shape[-2:])
-        print (f"{y_embed2=}")
-        mask = tensors.mask
-        assert mask is not None
-        not_mask = ~mask
-        print(f"{x.shape=}")
-        print (f"{mask.shape=}, {not_mask.shape=}")
-        print (f"{torch.sum(mask).item()=}, {torch.sum(not_mask).item()=}")
-        y_embed = not_mask.cumsum(1, dtype=torch.float32)
-        x_embed = not_mask.cumsum(2, dtype=torch.float32)
-        print (f"{y_embed.shape=}, {x_embed.shape=}")
-        print (f"{y_embed=}")
-        print (f"{x_embed=}")
+        #x = tensors.tensors
+        y_embed = torch.arange(1, x.shape[-1]+1).view(x.shape[-1], 1).expand(x.shape[:1] + x.shape[-2:])
+        x_embed = torch.arange(1, x.shape[-1]+1).view(1, x.shape[-1]).expand(x.shape[:1] + x.shape[-2:])
+        #mask = tensors.mask
+        #assert mask is not None
+        #not_mask = ~mask
+        #print(f"{x.shape=}")
+        #print (f"{mask.shape=}, {not_mask.shape=}")
+        #print (f"{torch.sum(mask).item()=}, {torch.sum(not_mask).item()=}")
+        #y_embed = not_mask.cumsum(1, dtype=torch.float32)
+        #x_embed = not_mask.cumsum(2, dtype=torch.float32)
+        #print (f"{y_embed.shape=}, {x_embed.shape=}")
+        #print (f"{y_embed=}")
+        #print (f"{x_embed=}")
         #print (y_embed.shape, x_embed.shape, tensor.shape)
         if self.normalize:
             eps = 1e-6
