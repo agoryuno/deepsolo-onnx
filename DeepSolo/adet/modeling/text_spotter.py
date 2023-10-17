@@ -229,40 +229,44 @@ class TransformerPureDetector(nn.Module):
                                     for x in batched_inputs]
 
         images = self.preprocess_image(batched_inputs)
-        if self.training:
-            gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
-            targets = self.prepare_targets(gt_instances)
-            output = self.detection_transformer(images)
-            loss_dict = self.criterion(output, targets)
-            weight_dict = self.criterion.weight_dict
-            for k in loss_dict.keys():
-                if k in weight_dict:
-                    loss_dict[k] *= weight_dict[k]
-            return loss_dict
-        else:
-            output = self.detection_transformer(images)
-            ctrl_point_cls = output["pred_logits"]
-            ctrl_point_coord = output["pred_ctrl_points"]
-            ctrl_point_text = output["pred_text_logits"]
-            bd_points = output["pred_bd_points"]
-            results = self.inference(
-                ctrl_point_cls,
-                ctrl_point_coord,
-                ctrl_point_text,
-                bd_points,
-                images.image_sizes
-            )
-            
-            processed_results = []
-            for results_per_image, input_per_image, image_size in zip(results, 
-                                                                      batched_inputs_dict, 
-                                                                      images.image_sizes):
-                height = input_per_image.get("height", image_size[0].item())
-                width = input_per_image.get("width", image_size[1].item())
-                r = detector_postprocess(results_per_image, height, width, self.min_size_test, self.max_size_test)
-                processed_results.append({"instances": r})
 
-            return processed_results
+        ## We don't support training so no
+        #  need for this
+        #
+        #if self.training:
+        #    gt_instances = [x["instances"].to(self.device) for x in batched_inputs]
+        #    targets = self.prepare_targets(gt_instances)
+        #    output = self.detection_transformer(images)
+        #    loss_dict = self.criterion(output, targets)
+        #    weight_dict = self.criterion.weight_dict
+        #    for k in loss_dict.keys():
+        #        if k in weight_dict:
+        #            loss_dict[k] *= weight_dict[k]
+        #    return loss_dict
+        #else:
+        output = self.detection_transformer(images)
+        ctrl_point_cls = output["pred_logits"]
+        ctrl_point_coord = output["pred_ctrl_points"]
+        ctrl_point_text = output["pred_text_logits"]
+        bd_points = output["pred_bd_points"]
+        results = self.inference(
+            ctrl_point_cls,
+            ctrl_point_coord,
+            ctrl_point_text,
+            bd_points,
+            images.image_sizes
+        )
+            
+        processed_results = []
+        for results_per_image, input_per_image, image_size in zip(results, 
+                                                                    batched_inputs_dict, 
+                                                                    images.image_sizes):
+            height = input_per_image.get("height", image_size[0].item())
+            width = input_per_image.get("width", image_size[1].item())
+            r = detector_postprocess(results_per_image, height, width, self.min_size_test, self.max_size_test)
+            processed_results.append({"instances": r})
+
+        return processed_results
 
     def prepare_targets(self, targets):
         new_targets = []
