@@ -41,7 +41,9 @@ class MaskedBackbone(nn.Module):
     def forward(self, images):
         print (f"{type(images)=}")
         features: dict = self.backbone(images.tensor)
-        print (f"{features=}")
+        print ("features:")
+        for k,v in features.items():
+            print (f"    {k} : {v.shape}")
         masks = self.mask_out_padding(
             [features_per_level.shape for features_per_level in features.values()],
             images.image_sizes,
