@@ -60,6 +60,8 @@ class PositionalEncoding2D(nn.Module):
         self.scale = scale
 
     def forward(self, tensors):
+        print (type(tensors))
+        print (dir(tensors))
         x = tensors.tensors
         mask = tensors.mask
         assert mask is not None
