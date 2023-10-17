@@ -60,13 +60,11 @@ class PositionalEncoding2D(nn.Module):
         self.scale = scale
 
     def forward(self, tensors: torch.Tensor):
-        print(dir(tensors))
-        print (type(tensors.tensors))
         x = tensors.tensors
         mask = tensors.mask
         assert mask is not None
         not_mask = ~mask
-        print (mask.shape, not_mask.shape)
+        print (f"{mask.shape=}, {not_mask.shape=}")
         y_embed = not_mask.cumsum(1, dtype=torch.float32)
         x_embed = not_mask.cumsum(2, dtype=torch.float32)
         #print (y_embed.shape, x_embed.shape, tensor.shape)
@@ -77,7 +75,7 @@ class PositionalEncoding2D(nn.Module):
 
         dim_t = torch.arange(self.num_pos_feats, dtype=torch.float32, device=x.device)
         dim_t = self.temperature ** (2 * torch.div(dim_t, 2, rounding_mode='trunc') / self.num_pos_feats)
-        print (dim_t.shape)
+        print (f"{dim_t.shape=}")
         pos_x = x_embed[:, :, :, None] / dim_t
         pos_y = y_embed[:, :, :, None] / dim_t
         pos_x = torch.stack((pos_x[:, :, :, 0::2].sin(), pos_x[:, :, :, 1::2].cos()), dim=4).flatten(3)
