@@ -9,6 +9,7 @@ MODEL:
     TYPE: 'vitaev2_s'
     DROP_PATH_RATE: 0.3
   TRANSFORMER:
+    AUX_LOSS: False
     ENABLED: True
     NUM_FEATURE_LEVELS: 4
     TEMPERATURE: 10000
