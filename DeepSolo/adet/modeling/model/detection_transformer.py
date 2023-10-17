@@ -2,6 +2,8 @@ import numpy as np
 import torch
 from torch import nn
 import torch.nn.functional as F
+
+from detectron2.structures.image_list import ImageList
 from ...layers.deformable_transformer import DeformableTransformer
 from ...utils.misc import (
     NestedTensor,
@@ -158,14 +160,11 @@ class DETECTION_TRANSFORMER(nn.Module):
 
         self.to(self.device)
 
-    def forward(self, samples: list[torch.Tensor]):
+    def forward(self, samples: ImageList):
         """ The forward expects a NestedTensor, which consists of:
                - samples.tensor: batched images, of shape [batch_size x 3 x H x W]
                - samples.mask: a binary mask of shape [batch_size x H x W], containing 1 on padded pixels
         """
-        if isinstance(samples, (list, torch.Tensor)):
-            samples = nested_tensor_from_tensor_list(samples)
-        print (type(samples))
         features, pos = self.backbone(samples)
 
         srcs = []
