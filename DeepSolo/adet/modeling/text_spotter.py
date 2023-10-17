@@ -44,17 +44,17 @@ class MaskedBackbone(nn.Module):
         print ("features:")
         for k,v in features.items():
             print (f"    {k} : {v.shape}")
-        masks = self.mask_out_padding(
-            [features_per_level.shape for features_per_level in features.values()],
-            images.image_sizes,
-            images.tensor.device,
-        )
-        for mask in masks:
-            print (f"{mask.shape=}")
-            print (f"{torch.sum(mask).item()=}")
-        assert len(features) == len(masks)
-        for i, k in enumerate(features.keys()):
-            features[k] = NestedTensor(features[k], masks[i])
+        #masks = self.mask_out_padding(
+        #    [features_per_level.shape for features_per_level in features.values()],
+        #    images.image_sizes,
+        #    images.tensor.device,
+        #)
+        #for mask in masks:
+        #    print (f"{mask.shape=}")
+        #    print (f"{torch.sum(mask).item()=}")
+        #assert len(features) == len(masks)
+        #for i, k in enumerate(features.keys()):
+        #    features[k] = NestedTensor(features[k], masks[i])
         return features
 
     def mask_out_padding(self, feature_shapes, image_sizes, device):
