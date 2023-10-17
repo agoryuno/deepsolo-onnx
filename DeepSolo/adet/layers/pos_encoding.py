@@ -59,13 +59,14 @@ class PositionalEncoding2D(nn.Module):
             scale = 2 * np.pi
         self.scale = scale
 
-    def forward(self, tensor: torch.Tensor):
-        x = tensor
-        #mask = tensors.mask
-        #assert mask is not None
-        #not_mask = ~mask
-        y_embed = x.cumsum(1, dtype=torch.float32)
-        x_embed = x.cumsum(2, dtype=torch.float32)
+    def forward(self, tensors: torch.Tensor):
+        x = tensors.tensor
+        mask = tensors.mask
+        assert mask is not None
+        not_mask = ~mask
+        print (mask.shape, not_mask.shape)
+        y_embed = not_mask.cumsum(1, dtype=torch.float32)
+        x_embed = not_mask.cumsum(2, dtype=torch.float32)
         print (y_embed.shape, x_embed.shape, tensor.shape)
         if self.normalize:
             eps = 1e-6
