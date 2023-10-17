@@ -25,14 +25,16 @@ def setup_cfg(config_path: Union[str, Path], weights_path: str):
     return cfg
 
 
-def SimpleONNXReadyModel(config_path, weights_path):
+def SimpleONNXReadyModel(config_path, weights_path,
+                         width=512, height=512):
     cfg = setup_cfg(config_path, weights_path)
     cfg.freeze()
-    return ViTAEPredictor(cfg)
+    return ViTAEPredictor(cfg, width, height)
         
 
 class ViTAEPredictor(nn.Module):
-    def __init__(self, cfg):
+    def __init__(self, cfg, input_width: int, 
+                 input_height: int):
         super().__init__()
         self.cfg = cfg.clone()
 
@@ -44,6 +46,9 @@ class ViTAEPredictor(nn.Module):
         # that performs the actual work
         self.model = build_model(self.cfg)
         self.model.eval()
+
+        self.input_width = input_width
+        self.input_height = input_height
 
         checkpointer = DetectionCheckpointer(self.model)
         checkpointer.load(cfg.MODEL.WEIGHTS)
@@ -71,13 +76,10 @@ class ViTAEPredictor(nn.Module):
             if self.input_format == "RGB":
                 #original_image = original_image[:, :, ::-1]
                 original_image = torch.flip(original_image, [-1])
-            height_t, width_t = original_image.shape[:2]
-            height = height_t.item()
-            width = width_t.item()
             #image = self.aug.get_transform(original_image).apply_image(original_image)
             #image = self.pad.get_transform(image).apply_image(image)
             #image = torch.as_tensor(image.astype("float32").transpose(2, 0, 1))
             image = original_image.to(torch.float32)
-            inputs = {"image": image, "height": height, "width": width}
+            inputs = {"image": image, "height": self.input_height, "width": self.input_width}
             predictions = self.model([inputs])
             return predictions
