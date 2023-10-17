@@ -64,6 +64,7 @@ class PositionalEncoding2D(nn.Module):
         mask = tensors.mask
         assert mask is not None
         not_mask = ~mask
+        print(f"{x.shape=}")
         print (f"{mask.shape=}, {not_mask.shape=}")
         y_embed = not_mask.cumsum(1, dtype=torch.float32)
         x_embed = not_mask.cumsum(2, dtype=torch.float32)
