@@ -190,7 +190,7 @@ class DETECTION_TRANSFORMER(nn.Module):
             print (f"DEBUG: {_len_srcs=}, {self.num_feature_levels=}")
             for l in range(_len_srcs, self.num_feature_levels):
                 if l == _len_srcs:
-                    src = self.input_proj[l](features[-1].tensors)
+                    src = self.input_proj[l](features[-1])
                 else:
                     src = self.input_proj[l](srcs[-1])
                 m = masks[0]
