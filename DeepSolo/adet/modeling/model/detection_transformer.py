@@ -180,6 +180,7 @@ class DETECTION_TRANSFORMER(nn.Module):
             src, mask = feat.decompose()
             print (f"DEBUG: {l=}")
             print (f"DEBUG: {type(src)=}, {type(mask)=}")
+            print (f"DEBUG: {mask=}")
             srcs.append(self.input_proj[l](src))
             masks.append(mask)
             assert mask is not None
