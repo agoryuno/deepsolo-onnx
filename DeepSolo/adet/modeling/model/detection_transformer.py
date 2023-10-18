@@ -172,10 +172,6 @@ class DETECTION_TRANSFORMER(nn.Module):
         # self.backbone is adet.modelling.text_spotter.MaskedBackbone
         # it returns a dict with torch.Tensors as keys and values
         features, pos = self.backbone(samples)
-        print (f"{type(features)=}")
-        print (f"{type(pos)=}")
-        print (f"{type(features[0])=}")
-        print (f"{type(pos[0])=}")
 
         srcs = []
         masks = []
@@ -187,10 +183,8 @@ class DETECTION_TRANSFORMER(nn.Module):
             assert mask is not None
         if self.num_feature_levels > len(srcs):
             _len_srcs = len(srcs)
-            print (f"DEBUG: {_len_srcs=}, {self.num_feature_levels=}")
             for l in range(_len_srcs, self.num_feature_levels):
                 if l == _len_srcs:
-                    print (f"DEBUG: {dir(features[-1])=}")
                     src = self.input_proj[l](features[-1])
                 else:
                     src = self.input_proj[l](srcs[-1])

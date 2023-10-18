@@ -64,7 +64,6 @@ class PositionalEncoding2D(nn.Module):
         print ("PositionalEncoding2D.forward(x)")
         print ("="*100)
 
-        print (f"DEBUG: {type(x)=}")
         #x = tensors.tensors
         y_embed = torch.arange(1, x.shape[-1]+1).view(x.shape[-1], 1).expand(x.shape[:1] + x.shape[-2:]).to(x.device, dtype=torch.float32)
         x_embed = torch.arange(1, x.shape[-1]+1).view(1, x.shape[-1]).expand(x.shape[:1] + x.shape[-2:]).to(x.device, dtype=torch.float32)
@@ -87,7 +86,6 @@ class PositionalEncoding2D(nn.Module):
 
         dim_t = torch.arange(self.num_pos_feats, dtype=torch.float32, device=x.device)
         dim_t = self.temperature ** (2 * torch.div(dim_t, 2, rounding_mode='trunc') / self.num_pos_feats)
-        print (f"{dim_t.shape=}")
         pos_x = x_embed[:, :, :, None] / dim_t
         pos_y = y_embed[:, :, :, None] / dim_t
         pos_x = torch.stack((pos_x[:, :, :, 0::2].sin(), pos_x[:, :, :, 1::2].cos()), dim=4).flatten(3)
