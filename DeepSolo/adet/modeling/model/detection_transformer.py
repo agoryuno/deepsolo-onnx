@@ -190,6 +190,7 @@ class DETECTION_TRANSFORMER(nn.Module):
             print (f"DEBUG: {_len_srcs=}, {self.num_feature_levels=}")
             for l in range(_len_srcs, self.num_feature_levels):
                 if l == _len_srcs:
+                    print (f"DEBUG: {dir(features[-1])=}")
                     src = self.input_proj[l](features[-1])
                 else:
                     src = self.input_proj[l](srcs[-1])
