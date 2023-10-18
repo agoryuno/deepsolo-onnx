@@ -170,7 +170,9 @@ class DETECTION_TRANSFORMER(nn.Module):
         print ("="*100)
 
         features, pos = self.backbone(samples)
-        print (f"{type(features)=}, {type(pos)=}")
+        print (f"DEBUG: {type(features)=}, {type(pos)=}")
+        print (f"DEBUG: {type(features[0])=}, {type(pos[0])=}")
+        print (f"DEBUG: {len(features)=}, {len(pos)=}")
 
         srcs = []
         masks = []
