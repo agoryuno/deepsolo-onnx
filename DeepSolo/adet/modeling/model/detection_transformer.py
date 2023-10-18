@@ -169,19 +169,20 @@ class DETECTION_TRANSFORMER(nn.Module):
         print ("DETECTION_TRANSFORMER.forward(samples)")
         print ("="*100)
 
+        # self.backbone is adet.modelling.text_spotter.MaskedBackbone
+        # it returns a dict with torch.Tensors as keys and values
         features, pos = self.backbone(samples)
-        print (f"DEBUG: {type(features)=}, {type(pos)=}")
-        print (f"DEBUG: {type(features[0])=}, {type(pos[0])=}")
-        print (f"DEBUG: {len(features)=}, {len(pos)=}")
+        print (f"{type(features)=}")
+        print (f"{type(pos)=}")
+        print (f"{type(features[0])=}")
+        print (f"{type(pos[0])=}")
 
         srcs = []
         masks = []
         for l, feat in enumerate(features):
             src, mask = feat.decompose()
-            print (f"DEBUG: {l=}")
-            print (f"DEBUG: {type(src)=}, {type(mask)=}")
-            print (f"DEBUG: {src.shape=}, {mask.shape=}")
-            print (f"DEBUG: {mask=}")
+            print(f"DEBUG: {src.shape=}, {mask.shape=}")
+            mask = torch.zeros()
             srcs.append(self.input_proj[l](src))
             masks.append(mask)
             assert mask is not None
