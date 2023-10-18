@@ -39,7 +39,9 @@ class MaskedBackbone(nn.Module):
         self.num_channels = backbone_shape[list(backbone_shape.keys())[-1]].channels
 
     def forward(self, images: ImageList):
+        print ("="*100)
         print ("MaskedBackbone(images)")
+        print ("="*100)
         print (f"{type(images)=}")
         features: dict = self.backbone(images.tensor)
         print ("features:")

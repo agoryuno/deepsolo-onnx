@@ -60,8 +60,8 @@ class PositionalEncoding2D(nn.Module):
         self.scale = scale
 
     def forward(self, x: torch.Tensor):
-        print ("PositionalEncoding2D.forward(x)")
         print ("="*100)
+        print ("PositionalEncoding2D.forward(x)")
         print ("="*100)
         #x = tensors.tensors
         y_embed = torch.arange(1, x.shape[-1]+1).view(x.shape[-1], 1).expand(x.shape[:1] + x.shape[-2:]).to(x.device, dtype=torch.float32)

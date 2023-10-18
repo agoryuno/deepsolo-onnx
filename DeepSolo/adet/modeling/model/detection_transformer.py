@@ -165,7 +165,9 @@ class DETECTION_TRANSFORMER(nn.Module):
                - samples.tensor: batched images, of shape [batch_size x 3 x H x W]
                - samples.mask: a binary mask of shape [batch_size x H x W], containing 1 on padded pixels
         """
+        print ("="*100)
         print ("DETECTION_TRANSFORMER.forward(samples)")
+        print ("="*100)
         print (f"{type(samples)=}")
 
         features, pos = self.backbone(samples)
