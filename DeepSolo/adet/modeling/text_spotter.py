@@ -38,7 +38,8 @@ class MaskedBackbone(nn.Module):
         self.feature_strides = [backbone_shape[f].stride for f in backbone_shape.keys()]
         self.num_channels = backbone_shape[list(backbone_shape.keys())[-1]].channels
 
-    def forward(self, images):
+    def forward(self, images: ImageList):
+        print ("MaskedBackbone(images)")
         print (f"{type(images)=}")
         features: dict = self.backbone(images.tensor)
         print ("features:")

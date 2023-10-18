@@ -60,6 +60,7 @@ class PositionalEncoding2D(nn.Module):
         self.scale = scale
 
     def forward(self, x: torch.Tensor):
+        print ("PositionalEncoding2D.forward(x)")
         print ("="*100)
         print ("="*100)
         #x = tensors.tensors
