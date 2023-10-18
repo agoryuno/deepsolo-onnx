@@ -196,7 +196,7 @@ class DETECTION_TRANSFORMER(nn.Module):
                     src = self.input_proj[l](srcs[-1])
                 m = masks[0]
                 mask = F.interpolate(m[None].float(), size=src.shape[-2:]).to(torch.bool)[0]
-                pos_l = self.backbone[1](NestedTensor(src, mask)).to(src.dtype)
+                pos_l = self.backbone[1](src).to(src.dtype)
                 srcs.append(src)
                 masks.append(mask)
                 pos.append(pos_l)
