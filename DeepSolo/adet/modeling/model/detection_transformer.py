@@ -168,11 +168,14 @@ class DETECTION_TRANSFORMER(nn.Module):
         print ("="*100)
         print ("DETECTION_TRANSFORMER.forward(samples)")
         print ("="*100)
-        print (f"{type(samples)=}")
 
+        # self.backbone is adet.modelling.text_spotter.MaskedBackbone
+        # it returns a dict with torch.Tensors as keys and values
         features, pos = self.backbone(samples)
         print (f"{type(features)=}")
         print (f"{type(pos)=}")
+        print (f"{type(features[0])=}")
+        print (f"{type(pos[0])=}")
 
         srcs = []
         masks = []
