@@ -182,7 +182,6 @@ class DETECTION_TRANSFORMER(nn.Module):
         for l, feat in enumerate(features):
             src, mask = feat.decompose()
             print(f"DEBUG: {src.shape=}, {mask.shape=}")
-            mask = torch.zeros()
             srcs.append(self.input_proj[l](src))
             masks.append(mask)
             assert mask is not None
