@@ -179,8 +179,9 @@ class DETECTION_TRANSFORMER(nn.Module):
 
         srcs = []
         masks = []
-        for l, feat in enumerate(features):
-            src, mask = feat.decompose()
+        for l, src in enumerate(features):
+            #src, mask = feat.decompose()
+            
             srcs.append(self.input_proj[l](src))
             masks.append(mask)
             assert mask is not None
