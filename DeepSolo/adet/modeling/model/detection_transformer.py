@@ -188,6 +188,7 @@ class DETECTION_TRANSFORMER(nn.Module):
         if self.num_feature_levels > len(srcs):
             _len_srcs = len(srcs)
             for l in range(_len_srcs, self.num_feature_levels):
+                print (f"DEBUG: {l=}")
                 if l == _len_srcs:
                     src = self.input_proj[l](features[-1].tensors)
                     print (f"DEBUG: l == _len_srcs")
