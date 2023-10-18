@@ -195,7 +195,7 @@ class DETECTION_TRANSFORMER(nn.Module):
                     print (f"DEBUG: l == _len_srcs")
                 else:
                     src = self.input_proj[l](srcs[-1])
-                print (f"DEBUG {src=}")
+                print (f"DEBUG {srcs[-1].shape=}, {features[-1].tensors.shape=}")
                 m = masks[0]
                 mask = F.interpolate(m[None].float(), size=src.shape[-2:]).to(torch.bool)[0]
                 pos_l = self.backbone[1](NestedTensor(src, mask)).to(src.dtype)
