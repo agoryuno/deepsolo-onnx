@@ -187,6 +187,7 @@ class DETECTION_TRANSFORMER(nn.Module):
             assert mask is not None
         if self.num_feature_levels > len(srcs):
             _len_srcs = len(srcs)
+            print (f"DEBUG: {_len_srcs=}, {self.num_feature_levels=}")
             for l in range(_len_srcs, self.num_feature_levels):
                 print (f"DEBUG: {l=}")
                 if l == _len_srcs:
